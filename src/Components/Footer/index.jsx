@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer>Ike Steoger 2023</footer>
+        <footer data-testid='footer'> &copy; Ike Steoger 2023</footer>
     )
 }
 

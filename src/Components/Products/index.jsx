@@ -2,13 +2,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Card, Button, Typography, CardMedia, CardContent, CardActions, Grid } from '@mui/material';
 import { When } from 'react-if';
 import { addToCart } from '../../store/actions';
+import { getProducts } from '../../store/products';
+import { useEffect } from 'react';
 
 function Products() {
 
     const { products } = useSelector((state) => state.products);
     const { activeCategory } = useSelector((state) => state.categories);
     const dispatch = useDispatch();
-    // console.log(products);
+    console.log(products);
+
+    useEffect(() => {
+        dispatch(getProducts())
+    }, [activeCategory])
 
     return (
         <When condition={activeCategory}>
