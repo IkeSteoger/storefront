@@ -4,10 +4,10 @@ import { AppBar, Button, Container, Toolbar, Typography } from '@mui/material';
 function Header() {
 
     const { cart } = useSelector((state) => state.cart);
-    // console.log(cartCount)
+    // console.log(cart)
 
     return (
-        <AppBar position='static' sx={{ backgroundColor: 'white' }}>
+        <AppBar data-testid="header" position='static' sx={{ backgroundColor: 'white' }}>
             <Container>
                 <Toolbar disableGutters>
                     <Typography
