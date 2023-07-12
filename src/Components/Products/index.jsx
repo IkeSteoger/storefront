@@ -1,19 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Button, Typography, CardMedia, CardContent, CardActions, Grid } from '@mui/material';
 import { When } from 'react-if';
-import { addToCart } from '../../store/actions';
-import { getProducts } from '../../store/products';
+import { ADD_TO_CART } from '../../store/cart';
+import { getProducts, removeStock } from '../../store/products';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function Products() {
 
     const { products } = useSelector((state) => state.products);
     const { activeCategory } = useSelector((state) => state.categories);
     const dispatch = useDispatch();
-    console.log(products);
+    // console.log(products);
+    // console.log(activeCategory);
+
+    const addDispatcher = (product) => {
+        dispatch(ADD_TO_CART(product));
+        dispatch(removeStock(product));
+    }
 
     useEffect(() => {
-        dispatch(getProducts())
+        dispatch(getProducts(activeCategory.name))
     }, [activeCategory])
 
     return (
@@ -27,14 +34,14 @@ function Products() {
                                     <CardMedia id="img-container"
                                         sx={{ height: 140 }}
                                         image={`https://source.unsplash.com/random/?${product.name}`}
-                                        title="random image"
+                                        title={product.name}
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            Name: {product.name}
+                                            {product.name}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            Price: {product.price}
+                                            Price: ${product.price}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             In-Stock: {product.inStock}
@@ -42,9 +49,12 @@ function Products() {
                                     </CardContent>
                                     <CardActions>
                                         <When condition={product.inStock}>
-                                            <Button size="small" onClick={() => dispatch(addToCart(product))}>Add to Cart</Button>
+                                            <Button size="small" onClick={() => addDispatcher(product)}>Add to Cart</Button>
                                         </When>
-                                        <Button size="small">View Details</Button>
+                                        <Button
+                                            size="small"
+                                            component={Link}
+                                            to={`/product/${product._id}`}>View Details</Button>
                                     </CardActions>
                                 </Card>
                             </Grid>

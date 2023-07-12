@@ -2,7 +2,10 @@ import productsReducer from './products';
 import cartReducer from './cart';
 import categoriesReducer from './categories';
 import { legacy_createStore as createStore, combineReducers } from 'redux';
-import { changeCategory, addToCart, removeFromCart, reset } from './actions';
+import { ADD_TO_CART, REMOVE_FROM_CART, RESET } from './cart';
+import { setProducts, CHANGE_CATEGORY_PRODUCTS } from './products';
+import { setCategories, CHANGE_CATEGORY } from './categories';
+
 
 describe('Reducers in store', () => {
     const reducers = combineReducers({
@@ -25,16 +28,15 @@ describe('Reducers in store', () => {
 
     test('contains relevant products when active category is set', () => {
         let category = { name: 'food', displayName: 'Food' };
-        store.dispatch(changeCategory(category));
+        store.dispatch(setCategories(category));
         let state = store.getState();
         let { products } = state.products;
         expect(products.length).toEqual(0);
-        // expect(products[0].name).toEqual('Apples');
     })
 
     test('checks addToCart functionality', () => {
         let product = { name: 'TV', category: 'electronics', price: 699.00, inStock: 5 };
-        store.dispatch(addToCart(product));
+        store.dispatch(ADD_TO_CART(product));
         let state = store.getState();
         let { cart } = state.cart;
         expect(cart.length).toEqual(1);
@@ -43,14 +45,14 @@ describe('Reducers in store', () => {
 
     test('checks removeFromCart functionality', () => {
         let product = { name: 'TV', category: 'electronics', price: 699.00, inStock: 5 };
-        store.dispatch(removeFromCart(product));
+        store.dispatch(REMOVE_FROM_CART(product));
         let state = store.getState();
         let { cart } = state.cart;
         expect(cart.length).toEqual(0);
     })
 
     test('checks reset functionality', () => {
-        store.dispatch(reset());
+        store.dispatch(RESET());
         let state = store.getState();
         let { cart } = state.cart;
         expect(cart.length).toEqual(0);

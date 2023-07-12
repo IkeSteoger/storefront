@@ -1,15 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import Header from './index';
 import { Provider } from 'react-redux';
 import store from '../../store';
-
-
+import App from '../../App';
 
 describe('Header Test', () => {
     test('renders Header', () =>{
         render(
         <Provider store={store}>
-            <Header />
+            <App />
         </Provider>
         )
 
