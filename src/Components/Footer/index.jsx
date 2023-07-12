@@ -1,6 +1,8 @@
+import './styles.scss';
+
 function Footer() {
     return (
-        <footer data-testid='footer'> &copy; Ike Steoger 2023</footer>
+        <footer data-testid='footer'>&copy;2023 Ike Steoger</footer>
     )
 }
 
