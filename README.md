@@ -66,6 +66,10 @@ For now I have none and do not require one -->
 
 #### UMLs
 
+##### UML Lab 39
+
+![UML39](./src/assets/uml39.png)
+
 ##### UML Lab 38
 
 ![UML38](./src/assets/uml38.png)
